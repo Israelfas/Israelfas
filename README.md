@@ -2,17 +2,17 @@
 
 **Fullstack Developer · Ecuador 🇪🇨 · Software Engineering Student**
 
-> Building things for the web — from fast APIs to clean interfaces.
-> Based in Manta, studying and shipping code at the same time.
+> Estudiante de ingeniería en software en Manta.
+> Me gusta hacer cosas para la web, aprender y romper cosas en el proceso.
 
 ---
 
 ## 🧑‍💻 About me
 
-- 🎓 Software Engineering student at ULEAM, Manta — Ecuador
-- 💻 I work with **backend**, **frontend** and everything in between
-- 🌱 Always learning something new (currently diving deeper into TypeScript & Docker)
-- ⚡ I enjoy turning ideas into real, functional products
+- 🎓 Estudiando Ingeniería en Software en ULEAM, Manta — Ecuador
+- 💻 Me muevo entre el backend y el frontend según lo que toque
+- 🌱 Siempre aprendiendo algo nuevo, ahora mismo TypeScript y Docker
+- ⚡ Me gusta convertir ideas en proyectos reales aunque salgan feos al principio
 
 ---
 
