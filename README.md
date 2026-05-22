@@ -16,48 +16,82 @@
 
 ---
 
-## 🛠 Tech Stack
+## 🖥️ Tech Stack
 
-### Frontend
-![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)
-![Vue](https://img.shields.io/badge/Vue.js-35495E?style=flat&logo=vuedotjs&logoColor=4FC08D)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+<table align="center">
+  <tr>
+    <td align="center" width="90"><strong>Frontend</strong></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=react" width="40" title="React"/>
+      <img src="https://skillicons.dev/icons?i=nextjs" width="40" title="Next.js"/>
+      <img src="https://skillicons.dev/icons?i=vue" width="40" title="Vue"/>
+      <img src="https://skillicons.dev/icons?i=ts" width="40" title="TypeScript"/>
+      <img src="https://skillicons.dev/icons?i=tailwind" width="40" title="Tailwind CSS"/>
+      <img src="https://skillicons.dev/icons?i=html" width="40" title="HTML"/>
+      <img src="https://skillicons.dev/icons?i=css" width="40" title="CSS"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Backend</strong></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=nodejs" width="40" title="Node.js"/>
+      <img src="https://skillicons.dev/icons?i=express" width="40" title="Express"/>
+      <img src="https://skillicons.dev/icons?i=python" width="40" title="Python"/>
+      <img src="https://skillicons.dev/icons?i=django" width="40" title="Django"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><strong>DB & Cloud</strong></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=mongodb" width="40" title="MongoDB"/>
+      <img src="https://skillicons.dev/icons?i=postgres" width="40" title="PostgreSQL"/>
+      <img src="https://skillicons.dev/icons?i=firebase" width="40" title="Firebase"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><strong>DevOps</strong></td>
+    <td>
+      <img src="https://skillicons.dev/icons?i=docker" width="40" title="Docker"/>
+      <img src="https://skillicons.dev/icons?i=git" width="40" title="Git"/>
+      <img src="https://skillicons.dev/icons?i=github" width="40" title="GitHub"/>
+      <img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code"/>
+    </td>
+  </tr>
+</table>
 
-### Backend
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white)
+---
 
-### Databases & Tools
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+## 🔥 Actividad
+
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com?user=israelfas&theme=tokyonight&hide_border=true&date_format=M%20j%5B%2C%20Y%5D"/>
+</p>
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=israelfas&theme=tokyo-night&hide_border=true&area=true"/>
+</p>
 
 ---
 
 ## 📊 GitHub Stats
 
-![Israel's GitHub stats](https://github-readme-stats.vercel.app/api?username=israelfas&show_icons=true&theme=tokyonight&hide_border=true)
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=israelfas&layout=compact&theme=tokyonight&hide_border=true)
-
-[![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=israelfas&theme=tokyonight&hide_border=true)](https://git.io/streak-stats)
+<p align="center">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=israelfas&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true"/>
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=israelfas&layout=compact&theme=tokyonight&hide_border=true&langs_count=8"/>
+</p>
 
 ---
 
 ## 📬 Contact
 
-[![Instagram](https://img.shields.io/badge/@israel__mejk-E4405F?style=flat&logo=instagram&logoColor=white)](https://instagram.com/israel_mejk)
-[![Gmail](https://img.shields.io/badge/fired1297@gmail.com-D14836?style=flat&logo=gmail&logoColor=white)](mailto:fired1297@gmail.com)
-[![GitHub](https://img.shields.io/badge/israelfas-181717?style=flat&logo=github&logoColor=white)](https://github.com/israelfas)
+<p align="center">
+  <a href="https://instagram.com/israel_mejk"><img src="https://img.shields.io/badge/@israel__mejk-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/></a>
+  <a href="mailto:fired1297@gmail.com"><img src="https://img.shields.io/badge/fired1297@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
+  <a href="https://github.com/israelfas"><img src="https://img.shields.io/badge/israelfas-181717?style=for-the-badge&logo=github&logoColor=white"/></a>
+</p>
 
 ---
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=israelfas&color=blueviolet&style=flat" alt="profile views" />
+  <img src="https://komarev.com/ghpvc/?username=israelfas&color=blueviolet&style=for-the-badge&label=PROFILE+VIEWS"/>
 </p>
