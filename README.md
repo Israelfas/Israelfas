@@ -2,7 +2,7 @@
 
 **Fullstack Developer · Ecuador 🇪🇨 · Software Engineering Student**
 
-> Building things for the web — from fast APIs to clean interfaces.  
+> Building things for the web — from fast APIs to clean interfaces.
 > Based in Manta, studying and shipping code at the same time.
 
 ---
@@ -64,7 +64,7 @@
 ## 🔥 Actividad
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com?user=israelfas&theme=tokyonight&hide_border=true&date_format=M%20j%5B%2C%20Y%5D"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com?user=israelfas&theme=tokyonight&hide_border=true"/>
 </p>
 
 <p align="center">
@@ -76,8 +76,10 @@
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=israelfas&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true"/>
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=israelfas&layout=compact&theme=tokyonight&hide_border=true&langs_count=8"/>
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=israelfas&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&cache_seconds=1800"/>
+</p>
+<p align="center">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=israelfas&layout=compact&theme=tokyonight&hide_border=true&cache_seconds=1800"/>
 </p>
 
 ---
