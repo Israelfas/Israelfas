@@ -103,9 +103,9 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/output/activity-dark.svg?v=2">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/output/activity-light.svg?v=2">
-  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/output/activity-dark.svg?v=2" alt="Actividad en GitHub de los últimos 12 meses" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/output/activity-dark.svg?v=3">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/output/activity-light.svg?v=3">
+  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/output/activity-dark.svg?v=3" alt="Actividad en GitHub de los últimos 12 meses" width="100%">
 </picture>
 
 
