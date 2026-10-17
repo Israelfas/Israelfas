@@ -47,22 +47,22 @@
 <a href="https://github.com/UleamEPTI/App-Coins-BackEnd"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bachillero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bachillero-light.svg">
-  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bachillero-dark.svg" alt="Bachillero: backend de recompensas por reciclaje" width="100%">
+  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bachillero-dark.svg" alt="Bachillero: backend de recompensas por reciclaje" width="49%">
 </picture></a>
 <a href="https://github.com/Israelfas/bufete-juridico"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bufete-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bufete-light.svg">
-  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bufete-dark.svg" alt="Bufete Jurídico: plataforma para un bufete de abogados" width="100%">
+  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-bufete-dark.svg" alt="Bufete Jurídico: plataforma para un bufete de abogados" width="49%">
 </picture></a>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-kontago-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-kontago-light.svg">
-  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-kontago-dark.svg" alt="KontaGo: app de inventario web + móvil (en desarrollo)" width="100%">
+  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-kontago-dark.svg" alt="KontaGo: app de inventario web + móvil (en desarrollo)" width="49%">
 </picture>
 <a href="https://github.com/Israelfas/coursehub-api"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-coursehub-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-coursehub-light.svg">
-  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-coursehub-dark.svg" alt="CourseHub API: API REST de cursos e inscripciones" width="100%">
+  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/project-coursehub-dark.svg" alt="CourseHub API: API REST de cursos e inscripciones" width="49%">
 </picture></a>
 </div>
 
@@ -139,9 +139,6 @@
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/btn-github-light.svg">
   <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/btn-github-dark.svg" alt="GitHub: @Israelfas" width="32%">
 </picture></a>
-
-<a href="mailto:fired1297@gmail.com">fired1297@gmail.com</a> · <a href="https://instagram.com/israel_mejk">@israel_mejk</a> · <a href="https://github.com/Israelfas">@Israelfas</a>
-
 </div>
 
 <br/>

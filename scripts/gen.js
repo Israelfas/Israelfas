@@ -278,92 +278,83 @@ ${chips.join('')}
 }
 
 // ================= TÍTULOS DE SECCIÓN =================
-// Las piezas con texto usan 800 de ancho: en escritorio se ven casi a 1:1 y en el móvil
-// (~360 px) el texto queda a ~45% en vez de ~30%, que con 1200 lo hacía ilegible.
 function title(mode, num, label, slug) {
-  const th = THEMES[mode]; const d = new Doc(); const W = 800, H = 72;
-  const tx = 70, tw = measure('d7', label, 34, -0.5);
-  const lx = tx + tw + 24;
+  const th = THEMES[mode]; const d = new Doc(); const W = 1200, H = 80;
+  const tx = 64, tw = measure('d7', label, 36, -0.5);
+  const lx = tx + tw + 28;
   const body = `
 <defs><linearGradient id="ln" x1="0" x2="1"><stop offset="0" stop-color="${th.teal}" stop-opacity=".7"/><stop offset="1" stop-color="${th.teal}" stop-opacity="0"/></linearGradient>
 <linearGradient id="spark" x1="0" x2="1"><stop offset="0" stop-color="${th.sky}" stop-opacity="0"/><stop offset=".5" stop-color="${th.sky}"/><stop offset="1" stop-color="${th.sky}" stop-opacity="0"/></linearGradient></defs>
 <g class="up">
-  <rect x="1" y="18" width="52" height="36" rx="10" fill="none" stroke="${th.teal}" stroke-opacity=".5"/>
-  ${d.text('m6', num, 27, 42.5, 17, th.teal, 'text-anchor="middle"')}
-  ${d.text('d7', label, tx, 48, 34, th.text, 'letter-spacing="-0.5"')}
+  <rect x="1" y="24" width="46" height="32" rx="9" fill="none" stroke="${th.teal}" stroke-opacity=".5"/>
+  ${d.text('m6', num, 24, 46, 15, th.teal, 'text-anchor="middle"')}
+  ${d.text('d7', label, tx, 53, 36, th.text, 'letter-spacing="-0.5"')}
 </g>
-<rect x="${r(lx)}" y="35.5" width="${r(W - lx)}" height="1.5" fill="url(#ln)"/>
-<rect x="${r(lx)}" y="34.5" width="100" height="3.5" rx="2" fill="url(#spark)"><animate attributeName="x" values="${r(lx - 100)};${W}" dur="4.5s" repeatCount="indefinite"/></rect>`;
+<rect x="${r(lx)}" y="39.5" width="${r(W - lx)}" height="1.5" fill="url(#ln)"/>
+<rect x="${r(lx)}" y="38.5" width="120" height="3.5" rx="2" fill="url(#spark)"><animate attributeName="x" values="${r(lx - 120)};${W}" dur="4.5s" repeatCount="indefinite"/></rect>`;
   write(`title-${slug}-${mode}.svg`, svg(d, W, H, body, baseCSS, label));
 }
 
 // ================= SOBRE MÍ =================
 function about(mode) {
-  const th = THEMES[mode]; const d = new Doc(); const W = 800, P = 36, CW = W - P * 2;
+  const th = THEMES[mode]; const d = new Doc(); const W = 1200, H = 420, P = 40;
+  const lw = 600;
   const para = 'Estudio Ingeniería en Software en la ULEAM y trabajo como desarrollador full-stack, entre proyectos académicos y clientes reales. Mi fuerte es el backend con NestJS y PostgreSQL, y cuando el proyecto lo pide también me encargo del frontend y del móvil.';
+  const lines = wrap('d4', para, 18, lw - 10);
   const tags = ['backend', 'apis-rest', 'bases-de-datos', 'full-stack'];
+  let tx = P, tagEls = '';
+  tags.forEach((t) => { const w = measure('m4', '#' + t, 13) + 24; tagEls += `<rect x="${r(tx)}" y="${H - P - 32}" width="${r(w)}" height="32" rx="16" fill="${th.teal}" fill-opacity="${th.tint}" stroke="${th.teal}" stroke-opacity=".3"/>${d.text('m4', '#' + t, tx + 12, H - P - 11, 13, th.teal)}`; tx += w + 8; });
   const items = [
     { icon: 'server', c: th.teal, t: 'Backend sólido', s: 'Módulos claros, seguridad, colas de trabajo y reportes con NestJS.' },
     { icon: 'store', c: th.amber, t: 'Problemas reales', s: 'Talleres, bufetes y tiendas: software que alguien usa a diario.' },
     { icon: 'rocket', c: th.sky, t: 'Itero rápido', s: 'Primero una versión que funcione; después la mejoro paso a paso.' },
   ];
-  const hs = Math.min(fit('d7', 'que alguien usa todos los días.', 42, CW), fit('d7', 'Del modelo de datos a la app', 42, CW));
-  let y = P, b = '';
-  b += licon('quote', P, y - 2, 30, th.teal);
-  b += d.text('d7', 'Del modelo de datos a la app', P, y + 80, hs, th.text, 'letter-spacing="-1"');
-  b += d.text('d7', 'que alguien usa todos los días.', P, y + 130, hs, 'url(#hl)', 'letter-spacing="-1"');
-  b += `<rect x="${P}" y="${y + 156}" width="72" height="4" rx="2" fill="${th.teal}"/>`;
-  y += 206;
-  const lines = wrap('d4', para, 22, CW);
-  lines.forEach((l, i) => { b += d.text('d4', l, P, y + i * 34, 22, th.muted); });
-  y += (lines.length - 1) * 34 + 30;
-  let tx = P;
-  tags.forEach((t) => {
-    const w = measure('m4', '#' + t, 17) + 30;
-    b += `<rect x="${r(tx)}" y="${y}" width="${r(w)}" height="40" rx="20" fill="${th.teal}" fill-opacity="${th.tint}" stroke="${th.teal}" stroke-opacity=".3"/>${d.text('m4', '#' + t, tx + 15, y + 26, 17, th.teal)}`;
-    tx += w + 10;
-  });
-  y += 40 + 28;
-  const ih = 88;
+  const rx = P + lw + 40, rw = W - P - rx, ih = (H - P * 2 - 2 * 14) / 3;
+  let right = '';
   items.forEach((it, i) => {
-    const iy = y + i * (ih + 12);
-    b += `<rect x="${P}" y="${iy}" width="${CW}" height="${ih}" rx="16" fill="${th.surface2}" stroke="${th.border}"/>
-<rect x="${P + 18}" y="${iy + (ih - 52) / 2}" width="52" height="52" rx="14" fill="${it.c}" fill-opacity="${th.tint}" stroke="${it.c}" stroke-opacity=".3"/>
-${licon(it.icon, P + 31, iy + ih / 2 - 13, 26, it.c)}
-${d.text('d6', it.t, P + 90, iy + 38, 23, th.text, 'letter-spacing="-0.3"')}
-${d.text('d4', it.s, P + 90, iy + 67, fit('d4', it.s, 19, CW - 108, 16), th.muted)}`;
+    const y = P + i * (ih + 14);
+    const sl = wrap('d4', it.s, 15.5, rw - 104);
+    right += `<rect x="${r(rx)}" y="${r(y)}" width="${r(rw)}" height="${r(ih)}" rx="16" fill="${th.surface2}" stroke="${th.border}"/>
+<rect x="${r(rx + 20)}" y="${r(y + ih / 2 - 24)}" width="48" height="48" rx="13" fill="${it.c}" fill-opacity="${th.tint}" stroke="${it.c}" stroke-opacity=".3"/>
+${licon(it.icon, rx + 32, y + ih / 2 - 12, 24, it.c)}
+${d.text('d6', it.t, rx + 86, y + ih / 2 - (sl.length > 1 ? 14 : 4), 20, th.text, 'letter-spacing="-0.3"')}
+${sl.slice(0, 2).map((l, k) => d.text('d4', l, rx + 86, y + ih / 2 + (sl.length > 1 ? 10 : 20) + k * 20, 15.5, th.muted)).join('')}`;
   });
-  const H = y + items.length * (ih + 12) - 12 + P;
   const body = `<defs><clipPath id="ac"><rect width="${W}" height="${H}" rx="20"/></clipPath>
 <radialGradient id="aglow" cx="0" cy="0" r=".8"><stop offset="0" stop-color="${th.teal}" stop-opacity="${mode === 'dark' ? 0.2 : 0.08}"/><stop offset="1" stop-color="${th.teal}" stop-opacity="0"/></radialGradient>
 <linearGradient id="hl" x1="0" x2="1"><stop offset="0" stop-color="${th.teal}"/><stop offset="1" stop-color="${th.sky}"/></linearGradient></defs>
 <g clip-path="url(#ac)"><rect width="${W}" height="${H}" fill="${th.surface}"/><rect width="${W}" height="${H}" fill="url(#aglow)"/></g>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="20" fill="none" stroke="${th.border}"/>
-${b}`;
-  write(`about-${mode}.svg`, svg(d, W, H, body, baseCSS, 'Sobre mí: ' + para));
+${licon('quote', P, P - 2, 26, th.teal)}
+${d.text('d7', 'Del modelo de datos a la app', P, P + 70, 38, th.text, 'letter-spacing="-0.9"')}
+${d.text('d7', 'que alguien usa todos los días.', P, P + 116, 38, 'url(#hl)', 'letter-spacing="-0.9"')}
+<rect x="${P}" y="${P + 140}" width="64" height="3" rx="1.5" fill="${th.teal}"/>
+${lines.map((l, i) => d.text('d4', l, P, P + 182 + i * 28, 18, th.muted)).join('')}
+${tagEls}
+${right}`;
+  write(`about-${mode}.svg`, svg(d, W, H + 16, body, baseCSS, 'Sobre mí: ' + para));
 }
 
 // ================= FRANJA "AHORA" =================
 function now(mode) {
-  const th = THEMES[mode]; const d = new Doc(); const W = 800;
+  const th = THEMES[mode]; const d = new Doc(); const W = 1200, H = 120;
   const items = [
     { icon: 'map-pin', label: 'BASE', value: 'Manta, Ecuador', c: th.coral },
     { icon: 'graduation-cap', label: 'ESTUDIO', value: 'Ing. Software · ULEAM', c: th.sky },
     { icon: 'hammer', label: 'CONSTRUYENDO', value: 'KontaGo', c: th.amber },
     { icon: 'sparkles', label: 'APRENDIENDO', value: 'Docker · Clean Arch', c: th.violet },
   ];
-  // 2×2 para que cada valor tenga ancho de sobra en el móvil
-  const gap = 16, tw = (W - gap) / 2, tH = 108, H = tH * 2 + gap;
+  const gap = 16, tw = (W - gap * 3) / 4;
   let body = '';
   items.forEach((it, i) => {
-    const x = (i % 2) * (tw + gap), y = Math.floor(i / 2) * (tH + gap);
-    const vs = fit('d6', it.value, 27, tw - 44);
+    const x = i * (tw + gap);
+    const vs = fit('d6', it.value, 22, tw - 40);
     body += `<g class="up" style="animation-delay:${i * 0.1}s">
-<rect x="${r(x + 0.5)}" y="${y + 0.5}" width="${r(tw - 1)}" height="${tH - 1}" rx="16" fill="${th.surface}" stroke="${th.border}"/>
-<rect x="${r(x + 22)}" y="${y + 20}" width="40" height="40" rx="11" fill="${it.c}" fill-opacity="${th.tint}"/>
-${licon(it.icon, x + 32, y + 30, 20, it.c)}
-${d.text('m6', it.label, x + 76, y + 46, 15, th.dim, 'letter-spacing="1.6"')}
-${d.text('d6', it.value, x + 22, y + 90, vs, th.text, 'letter-spacing="-0.3"')}
+<rect x="${r(x + 0.5)}" y=".5" width="${r(tw - 1)}" height="${H - 1}" rx="16" fill="${th.surface}" stroke="${th.border}"/>
+<rect x="${r(x + 20)}" y="22" width="34" height="34" rx="10" fill="${it.c}" fill-opacity="${th.tint}"/>
+${licon(it.icon, x + 28, 30, 18, it.c)}
+${d.text('m6', it.label, x + 66, 44, 12, th.dim, 'letter-spacing="1.6"')}
+${d.text('d6', it.value, x + 20, 94, vs, th.text, 'letter-spacing="-0.3"')}
 </g>`;
   });
   write(`now-${mode}.svg`, svg(d, W, H, body, baseCSS, 'Base: Manta, Ecuador · Estudio: Ingeniería en Software, ULEAM · Construyendo: KontaGo · Aprendiendo: Docker y Clean Architecture'));
@@ -401,30 +392,26 @@ const PROJECTS = [
   },
 ];
 
-// Una tarjeta por fila (antes eran 2 por fila y en el móvil el texto quedaba a ~4 px)
-const CARD_W = 800, CARD_P = 36, DESC_FS = 21, DESC_LH = 31;
 function card(mode, p) {
-  const th = THEMES[mode]; const d = new Doc(); const W = CARD_W, P = CARD_P;
+  const th = THEMES[mode]; const d = new Doc(); const W = 600, H = 400; const P = 34;
   const ac = th[p.accent];
   // etiqueta
-  const tagW = measure('m7', p.tag, 14, 1.2) + 50;
+  const tagW = measure('m7', p.tag, 12, 1.2) + 42;
   const tagX = W - P - tagW;
-  // descripción: todas las tarjetas reservan las mismas líneas para tener la misma altura
-  const lines = wrap('d4', p.desc, DESC_FS, W - P * 2).slice(0, 3);
-  const nLines = Math.min(3, Math.max(...PROJECTS.map((q) => wrap('d4', q.desc, DESC_FS, W - P * 2).length)));
-  const descY = 150, hlY = descY + (nLines - 1) * DESC_LH + 44, divY = hlY + 26, chipY = divY + 22, H = chipY + 44 + P;
+  // descripción
+  const lines = wrap('d4', p.desc, 18, W - P * 2).slice(0, 3);
   // highlights
   let hx = P, hls = '';
   p.hl.forEach((h, i) => {
-    if (i) { hls += `<circle cx="${r(hx + 11)}" cy="${hlY - 6}" r="2.6" fill="${th.dim}"/>`; hx += 22; }
-    hls += d.text('m4', h, hx, hlY, 17, th.muted); hx += measure('m4', h, 17);
+    if (i) { hls += `<circle cx="${r(hx + 9)}" cy="292" r="2.2" fill="${th.dim}"/>`; hx += 18; }
+    hls += d.text('m4', h, hx, 297, 14, th.muted); hx += measure('m4', h, 14);
   });
   // chips
   let cx = P, chips = '';
   p.tech.forEach(([k, n]) => {
-    const w = 42 + measure('m4', n, 16) + 14;
-    chips += `<rect x="${r(cx)}" y="${chipY}" width="${r(w)}" height="44" rx="11" fill="${th.surface2}" stroke="${th.border}"/>${bicon(k, cx + 13, chipY + 12, 20, th)}${d.text('m4', n, cx + 42, chipY + 28, 16, th.text)}`;
-    cx += w + 10;
+    const w = 36 + measure('m4', n, 13) + 12;
+    chips += `<rect x="${r(cx)}" y="330" width="${r(w)}" height="34" rx="9" fill="${th.surface2}" stroke="${th.border}"/>${bicon(k, cx + 11, 339, 16, th)}${d.text('m4', n, cx + 35, 352, 13, th.text)}`;
+    cx += w + 8;
   });
   const cornerIcon = p.repo ? 'arrow-up-right' : 'lock';
   const body = `
@@ -440,29 +427,29 @@ function card(mode, p) {
 </g>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="20" fill="none" stroke="${th.border}"/>
 <g class="up">
-  <rect x="${P}" y="${P}" width="64" height="64" rx="17" fill="${ac}" fill-opacity="${th.tint}" stroke="${ac}" stroke-opacity=".35"/>
-  ${licon(p.icon, P + 16, P + 16, 32, ac)}
-  <rect x="${r(tagX)}" y="${P + 2}" width="${r(tagW)}" height="34" rx="17" fill="${ac}" fill-opacity="${th.tint}"/>
-  ${p.pulse ? ring(tagX + 18, P + 19, ac) : ''}
-  <circle cx="${r(tagX + 18)}" cy="${P + 19}" r="4.5" fill="${ac}"/>
-  ${d.text('m7', p.tag, tagX + 32, P + 24, 14, ac, 'letter-spacing="1.2"')}
+  <rect x="${P}" y="${P}" width="56" height="56" rx="15" fill="${ac}" fill-opacity="${th.tint}" stroke="${ac}" stroke-opacity=".35"/>
+  ${licon(p.icon, P + 14, P + 14, 28, ac)}
+  <rect x="${r(tagX)}" y="${P + 14}" width="${r(tagW)}" height="28" rx="14" fill="${ac}" fill-opacity="${th.tint}"/>
+  ${p.pulse ? ring(tagX + 16, P + 28, ac) : ''}
+  <circle cx="${r(tagX + 16)}" cy="${P + 28}" r="4" fill="${ac}"/>
+  ${d.text('m7', p.tag, tagX + 28, P + 32.5, 12, ac, 'letter-spacing="1.2"')}
 </g>
 <g class="up" style="animation-delay:.12s">
-  ${d.text('d7', p.name, P + 84, P + 30, fit('d7', p.name, 36, tagX - P - 100), th.text, 'letter-spacing="-0.6"')}
-  ${p.repo ? bicon('siGithub', P + 84, P + 44, 17, th, th.dim) : licon('lock', P + 84, P + 44, 17, th.dim)}
-  ${d.text('m4', p.repo || 'repositorio privado · pronto', P + 109, P + 58, 16, th.dim)}
+  ${d.text('d7', p.name, P, 140, 32, th.text, 'letter-spacing="-0.6"')}
+  ${p.repo ? bicon('siGithub', P, 156, 14, th, th.dim) : licon('lock', P, 156, 14, th.dim)}
+  ${d.text('m4', p.repo || 'repositorio privado · pronto', P + 22, 168, 13, th.dim)}
 </g>
 <g class="up" style="animation-delay:.22s">
-  ${lines.map((l, i) => d.text('d4', l, P, descY + i * DESC_LH, DESC_FS, th.muted)).join('')}
+  ${lines.map((l, i) => d.text('d4', l, P, 210 + i * 27, 18, th.muted)).join('')}
 </g>
 <g class="up" style="animation-delay:.32s">${hls}</g>
-<path d="M${P} ${divY}H${W - P}" stroke="${th.border}"/>
+<path d="M${P} 314H${W - P}" stroke="${th.border}"/>
 <g class="up" style="animation-delay:.4s">
   ${chips}
-  <circle cx="${W - P - 22}" cy="${chipY + 22}" r="22" fill="${p.repo ? ac : th.surface2}" fill-opacity="${p.repo ? th.tint : 1}" stroke="${p.repo ? ac : th.border}" stroke-opacity="${p.repo ? 0.4 : 1}"/>
-  ${licon(cornerIcon, W - P - 33, chipY + 11, 22, p.repo ? ac : th.dim)}
+  <circle cx="${W - P - 17}" cy="347" r="17" fill="${p.repo ? ac : th.surface2}" fill-opacity="${p.repo ? th.tint : 1}" stroke="${p.repo ? ac : th.border}" stroke-opacity="${p.repo ? 0.4 : 1}"/>
+  ${licon(cornerIcon, W - P - 26, 338, 18, p.repo ? ac : th.dim)}
 </g>`;
-  write(`project-${p.slug}-${mode}.svg`, svg(d, W, H, body, baseCSS, `${p.name}: ${p.desc}`));
+  write(`project-${p.slug}-${mode}.svg`, svg(d, W, H + 14, body, baseCSS, `${p.name}: ${p.desc}`));
 }
 
 // ================= STACK =================
@@ -474,24 +461,22 @@ const STACK = [
   ['DEVOPS', 'violet', [['siDocker', 'Docker'], ['siGit', 'Git'], ['siGithub', 'GitHub'], ['siLinux', 'Linux'], ['siPostman', 'Postman'], ['siSwagger', 'Swagger']]],
 ];
 function stack(mode) {
-  const th = THEMES[mode]; const d = new Doc(); const W = 800, P = 36, chH = 46, gap = 10;
-  // la etiqueta va encima y las fichas saltan de línea cuando no caben
-  let body = '', y = P - 4, n = 0;
+  const th = THEMES[mode]; const d = new Doc(); const W = 1200; const rowH = 64, top = 30;
+  const H = top * 2 + STACK.length * rowH - 18;
+  let body = `<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="20" fill="${th.surface}" stroke="${th.border}"/>`;
+  let n = 0;
   STACK.forEach(([label, acc, items], ri) => {
+    const y = top + ri * rowH;
     const c = th[acc];
-    body += `<g class="up" style="animation-delay:${ri * 0.08}s"><rect x="${P}" y="${y}" width="3" height="18" rx="1.5" fill="${c}"/>${d.text('m6', label, P + 14, y + 15, 15, th.dim, 'letter-spacing="2"')}</g>`;
-    y += 30;
-    let x = P;
+    body += `<g class="up" style="animation-delay:${ri * 0.08}s"><rect x="34" y="${y + 13}" width="3" height="20" rx="1.5" fill="${c}"/>${d.text('m6', label, 50, y + 28, 13, th.dim, 'letter-spacing="2"')}</g>`;
+    let x = 190;
     items.forEach(([k, name]) => {
-      const w = 48 + measure('d5', name, 19) + 16;
-      if (x + w > W - P) { x = P; y += chH + gap; }
-      body += `<g class="up" style="animation-delay:${0.15 + n * 0.035}s"><rect x="${r(x)}" y="${y}" width="${r(w)}" height="${chH}" rx="12" fill="${th.surface2}" stroke="${th.border}"/>${bicon(k, x + 14, y + 11, 24, th)}${d.text('d5', name, x + 48, y + 30, 19, th.text)}</g>`;
-      x += w + gap; n++;
+      const w = 44 + measure('d5', name, 17) + 16;
+      body += `<g class="up" style="animation-delay:${0.15 + n * 0.035}s"><rect x="${r(x)}" y="${y}" width="${r(w)}" height="46" rx="12" fill="${th.surface2}" stroke="${th.border}"/>${bicon(k, x + 14, y + 12, 22, th)}${d.text('d5', name, x + 44, y + 29, 17, th.text)}</g>`;
+      x += w + 10; n++;
     });
-    y += chH + 30;
+    if (x > W - 20) console.warn('stack row overflow', label, x);
   });
-  const H = y - 30 + P;
-  body = `<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="20" fill="${th.surface}" stroke="${th.border}"/>` + body;
   write(`stack-${mode}.svg`, svg(d, W, H, body, baseCSS, 'Stack: ' + STACK.map((s) => s[0] + ': ' + s[2].map((i) => i[1]).join(', ')).join(' · ')));
 }
 
@@ -512,32 +497,32 @@ const CONTACT = [
   { slug: 'instagram', icon: 'siInstagram', label: 'Instagram', sub: '@israel_mejk' },
   { slug: 'github', icon: 'siGithub', label: 'GitHub', sub: '@Israelfas' },
 ];
-// Botón compacto con letra grande; la dirección/usuario va como texto real bajo los botones
 function button(mode, b) {
-  const th = THEMES[mode]; const d = new Doc(); const W = 270, H = 80;
+  const th = THEMES[mode]; const d = new Doc(); const W = 380, H = 92;
   const br = brand(b.icon, th);
   const body = `
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="18" fill="${th.surface}" stroke="${th.border}"/>
-<circle cx="44" cy="40" r="25" fill="${br.color}" fill-opacity="${th.tint}"/>
-${bicon(b.icon, 31, 27, 26, th)}
-${d.text('d6', b.label, 82, 50, fit('d6', b.label, 28, W - 82 - 44), th.text, 'letter-spacing="-0.4"')}
-<g style="animation:fade 1s ease both">${licon('arrow-up-right', W - 38, 30, 20, th.teal)}</g>`;
+<circle cx="50" cy="46" r="26" fill="${br.color}" fill-opacity="${th.tint}"/>
+${bicon(b.icon, 37, 33, 26, th)}
+${d.text('d6', b.label, 94, 42, 22, th.text, 'letter-spacing="-0.3"')}
+${d.text('m4', b.sub, 94, 66, 14, th.muted)}
+<g style="animation:fade 1s ease both">${licon('arrow-up-right', W - 50, 34, 24, th.teal)}</g>`;
   write(`btn-${b.slug}-${mode}.svg`, svg(d, W, H, body, baseCSS, `${b.label}: ${b.sub}`));
 }
 
 // ================= FOOTER =================
 function footer(mode) {
-  const th = THEMES[mode]; const d = new Doc(); const W = 800, H = 190;
+  const th = THEMES[mode]; const d = new Doc(); const W = 1200, H = 210;
   const waves = [
-    { y: 116, a: 12, l: 300, op: 0.18, c: th.sky, dur: 30 },
-    { y: 134, a: 10, l: 240, op: 0.24, c: th.teal, dur: 20 },
-    { y: 152, a: 8, l: 400, op: 0.35, c: th.teal, dur: 38 },
+    { y: 120, a: 12, l: 300, op: 0.18, c: th.sky, dur: 30 },
+    { y: 138, a: 10, l: 240, op: 0.24, c: th.teal, dur: 20 },
+    { y: 158, a: 8, l: 400, op: 0.35, c: th.teal, dur: 38 },
   ].map((w) => `<g style="animation:drift ${w.dur}s linear infinite"><path d="${wavePath(w.y, w.a, w.l, 2400, H)}" fill="${w.c}" opacity="${mode === 'dark' ? w.op : w.op * 0.6}"/></g>`).join('');
   const body = `<defs><clipPath id="fc"><rect width="${W}" height="${H}" rx="24"/></clipPath>
 <linearGradient id="ff" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${th.bg}" stop-opacity="0"/><stop offset="1" stop-color="${th.bg}"/></linearGradient></defs>
 <g clip-path="url(#fc)">${waves}</g>
-${d.text('d6', 'Gracias por pasar.', W / 2, 50, 34, th.text, 'text-anchor="middle" letter-spacing="-0.5"')}
-${d.text('m4', 'código escrito frente al Pacífico · Manta, Ecuador', W / 2, 86, fit('m4', 'código escrito frente al Pacífico · Manta, Ecuador', 18, W - 72), th.muted, 'text-anchor="middle"')}`;
+${d.text('d6', 'Gracias por pasar.', W / 2, 52, 26, th.text, 'text-anchor="middle" letter-spacing="-0.4"')}
+${d.text('m4', 'código escrito frente al Pacífico · Manta, Ecuador', W / 2, 84, 14, th.muted, 'text-anchor="middle"')}`;
   write(`footer-${mode}.svg`, svg(d, W, H, body, baseCSS, 'Gracias por pasar · Manta, Ecuador'));
 }
 
