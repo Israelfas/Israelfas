@@ -98,26 +98,9 @@ Mi fuerte es el **backend con NestJS y PostgreSQL**: módulos bien separados, se
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api?username=Israelfas&show_icons=true&include_all_commits=true&count_private=true&rank_icon=github&hide_border=false&border_radius=16&bg_color=130F24&title_color=A78BFA&text_color=A49CBF&icon_color=E879F9&border_color=2A2342&ring_color=A78BFA&custom_title=Estad%C3%ADsticas&locale=es">
-  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api?username=Israelfas&show_icons=true&include_all_commits=true&count_private=true&rank_icon=github&hide_border=false&border_radius=16&bg_color=FFFFFF&title_color=7C3AED&text_color=5B5275&icon_color=C026D3&border_color=E9E5F5&ring_color=7C3AED&custom_title=Estad%C3%ADsticas&locale=es">
-  <img src="https://github-readme-stats.vercel.app/api?username=Israelfas&show_icons=true&include_all_commits=true&count_private=true&rank_icon=github&hide_border=false&border_radius=16&bg_color=130F24&title_color=A78BFA&text_color=A49CBF&icon_color=E879F9&border_color=2A2342&ring_color=A78BFA&custom_title=Estad%C3%ADsticas&locale=es" alt="Estadísticas de GitHub" height="180">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=Israelfas&locale=es&border_radius=16&background=130F24&border=2A2342&stroke=2A2342&ring=A78BFA&fire=E879F9&currStreakNum=ECE8F7&sideNums=ECE8F7&currStreakLabel=A78BFA&sideLabels=A49CBF&dates=A49CBF">
-  <source media="(prefers-color-scheme: light)" srcset="https://streak-stats.demolab.com?user=Israelfas&locale=es&border_radius=16&background=FFFFFF&border=E9E5F5&stroke=E9E5F5&ring=7C3AED&fire=C026D3&currStreakNum=1E1433&sideNums=1E1433&currStreakLabel=7C3AED&sideLabels=5B5275&dates=5B5275">
-  <img src="https://streak-stats.demolab.com?user=Israelfas&locale=es&border_radius=16&background=130F24&border=2A2342&stroke=2A2342&ring=A78BFA&fire=E879F9&currStreakNum=ECE8F7&sideNums=ECE8F7&currStreakLabel=A78BFA&sideLabels=A49CBF&dates=A49CBF" alt="Racha de contribuciones" height="180">
-</picture>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=Israelfas&layout=compact&langs_count=8&border_radius=16&bg_color=130F24&title_color=A78BFA&text_color=A49CBF&border_color=2A2342&custom_title=Lenguajes%20m%C3%A1s%20usados&locale=es">
-  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=Israelfas&layout=compact&langs_count=8&border_radius=16&bg_color=FFFFFF&title_color=7C3AED&text_color=5B5275&border_color=E9E5F5&custom_title=Lenguajes%20m%C3%A1s%20usados&locale=es">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Israelfas&layout=compact&langs_count=8&border_radius=16&bg_color=130F24&title_color=A78BFA&text_color=A49CBF&border_color=2A2342&custom_title=Lenguajes%20m%C3%A1s%20usados&locale=es" alt="Lenguajes más usados" height="160">
-</picture>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Israelfas&bg_color=130F24&color=A49CBF&line=A78BFA&point=E879F9&area=true&area_color=A78BFA&hide_border=false&border_color=2A2342&radius=16&custom_title=Contribuciones%20del%20%C3%BAltimo%20mes">
-  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Israelfas&bg_color=FFFFFF&color=5B5275&line=7C3AED&point=C026D3&area=true&area_color=7C3AED&hide_border=false&border_color=E9E5F5&radius=16&custom_title=Contribuciones%20del%20%C3%BAltimo%20mes">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Israelfas&bg_color=130F24&color=A49CBF&line=A78BFA&point=E879F9&area=true&area_color=A78BFA&hide_border=false&border_color=2A2342&radius=16&custom_title=Contribuciones%20del%20%C3%BAltimo%20mes" alt="Gráfico de contribuciones" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/activity-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/activity-light.svg">
+  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/activity-dark.svg" alt="Actividad en GitHub de los últimos 12 meses" width="100%">
 </picture>
 
 <picture>
@@ -168,6 +151,5 @@ Mi fuerte es el **backend con NestJS y PostgreSQL**: módulos bien separados, se
   <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/footer-dark.svg" alt="Gracias por pasar" width="100%">
 </picture>
 
-<img src="https://komarev.com/ghpvc/?username=Israelfas&label=visitas&color=7c3aed&style=flat-square" alt="visitas"/>
 
 </div>

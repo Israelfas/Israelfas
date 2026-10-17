@@ -1,0 +1,44 @@
+name: Actividad
+
+on:
+  schedule:
+    - cron: "30 5 * * *"   # todos los días (00:30 en Ecuador)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/**", ".github/workflows/actividad.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  actividad:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependencias
+        run: |
+          pip install fonttools brotli
+          cd scripts && npm install --no-audit --no-fund
+
+      - name: Generar tarjeta de actividad
+        working-directory: scripts
+        run: node activity.js ../assets ${{ github.repository_owner }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/activity-*.svg
+          git diff --staged --quiet || (git commit -m "chore: actualiza actividad" && git push)

@@ -6,8 +6,9 @@ const { execFileSync } = require('child_process');
 const fontkit = require('fontkit');
 const si = require('simple-icons');
 
-const OUT = path.resolve(process.argv[2] || 'out/assets');
-fs.mkdirSync(OUT, { recursive: true });
+const OUT = path.resolve(require.main === module ? (process.argv[2] || 'out/assets') : 'out/assets');
+if (require.main === module) fs.mkdirSync(OUT, { recursive: true });
+process.chdir(__dirname); // rutas de node_modules relativas a este archivo
 
 // ---------- Fuentes ----------
 const FD = 'node_modules/@fontsource';
@@ -461,6 +462,8 @@ ${d.text('m4', 'código escrito frente al Pacífico · Manta, Ecuador', W / 2, 8
 }
 
 // ---------- Generar todo ----------
+module.exports = { Doc, THEMES, measure, esc, r, fit, svg, baseCSS, licon, bicon, ring, wavePath };
+if (require.main !== module) return;
 const SECTIONS = [['01', 'Sobre mí', 'about'], ['02', 'Proyectos', 'projects'], ['03', 'Stack', 'stack'], ['04', 'Actividad', 'activity'], ['05', 'Contacto', 'contact']];
 for (const m of ['dark', 'light']) {
   hero(m); now(m); stack(m); divider(m); footer(m);
