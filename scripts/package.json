@@ -1,0 +1,12 @@
+{
+  "name": "perfil-assets",
+  "private": true,
+  "scripts": { "build": "node gen.js ../assets" },
+  "dependencies": {
+    "@fontsource/bricolage-grotesque": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "fontkit": "^2.0.4",
+    "lucide-static": "^1.58.0",
+    "simple-icons": "^15.0.0"
+  }
+}
