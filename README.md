@@ -103,11 +103,6 @@ Mi fuerte es el **backend con NestJS y PostgreSQL**: módulos bien separados, se
   <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/activity-dark.svg" alt="Actividad en GitHub de los últimos 12 meses" width="100%">
 </picture>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/output/snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/output/snake-light.svg">
-  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/output/snake-dark.svg" alt="Snake comiéndose mis contribuciones" width="100%">
-</picture>
 
 </div>
 

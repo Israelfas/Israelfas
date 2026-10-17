@@ -13,7 +13,7 @@ const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'o
 const fmtDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MESES[m - 1]} ${y}`; };
 
 async function fetchData() {
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.PERFIL_TOKEN || process.env.GITHUB_TOKEN; // PERFIL_TOKEN (PAT) incluye contribuciones privadas
   if (!token) throw new Error('Falta GITHUB_TOKEN');
   const query = `query($login:String!){ user(login:$login){
     repositories(ownerAffiliations:OWNER, isFork:false, privacy:PUBLIC, first:100){ totalCount nodes{ name stargazerCount
@@ -74,6 +74,7 @@ function analyze(u) {
   let langList = Object.entries(langs).map(([name, v]) => ({ name, color: v.color, pct: v.size / totalSize })).sort((a, b) => b.pct - a.pct);
   if (langList.length > 6) { const rest = langList.slice(5).reduce((a, b) => a + b.pct, 0); langList = [...langList.slice(0, 5), { name: 'Otros', color: '#6E6690', pct: rest }]; }
   return {
+    months: (() => { const m = {}; for (const d of days) { const k = d.date.slice(0, 7); m[k] = (m[k] || 0) + d.contributionCount; } return Object.entries(m).slice(-12).map(([k, v]) => ({ k, v })); })(),
     weeks: cal.weeks, total: cal.totalContributions, cur, best, top, weekday, active, days: days.length, today: today.date,
     commits: u.contributionsCollection.totalCommitContributions + u.contributionsCollection.restrictedContributionsCount,
     prs: u.contributionsCollection.totalPullRequestContributions,
@@ -122,30 +123,35 @@ function render(mode, a) {
     b += d.text('m4', k.sub, x + kw - 18, ky + 86, 12, th.dim, 'text-anchor="end"');
   });
 
-  // Heatmap
-  const cs = 15, gap = 4.5, step = cs + gap; const weeks = a.weeks.slice(-53);
-  const gx = P + 44, gy = 252;
-  const gw = weeks.length * step - gap;
-  b += d.text('m6', 'MAPA DE CONTRIBUCIONES', P, 230, 11, th.dim, 'letter-spacing="1.5"');
-  let lastM = -1;
-  weeks.forEach((w, wi) => {
-    const first = w.contributionDays[0]; const m = Number(first.date.slice(5, 7)) - 1;
-    if (m !== lastM && wi < weeks.length - 2) { if (lastM !== -1 || Number(first.date.slice(8)) <= 7) b += d.text('m4', MESES[m], gx + wi * step, gy - 9, 11, th.dim); lastM = m; }
-    w.contributionDays.forEach((day) => {
-      const x = gx + wi * step, y = gy + day.weekday * step;
-      b += `<rect x="${r(x)}" y="${r(y)}" width="${cs}" height="${cs}" rx="3.5" fill="${LV[day.contributionLevel] || LV.NONE}"/>`;
-      if (day.date === a.today) b += `<rect x="${r(x - 2)}" y="${r(y - 2)}" width="${cs + 4}" height="${cs + 4}" rx="5" fill="none" stroke="${th.sky}" stroke-width="1.5"><animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/></rect>`;
-    });
+  // Contribuciones por mes
+  const cy0 = 230, cTop = 262, cBase = 388, cH = cBase - cTop;
+  b += d.text('m6', 'CONTRIBUCIONES POR MES', P, cy0, 11, th.dim, 'letter-spacing="1.5"');
+  b += d.text('m4', `${a.commits} commits · ${a.prs} PRs · ${a.repos} repos públicos`, W - P, cy0, 12, th.muted, 'text-anchor="end"');
+  const mmax = Math.max(...a.months.map((m) => m.v), 1);
+  const nice = Math.ceil(mmax / 10) * 10 || 10;
+  for (let k = 0; k <= 2; k++) {
+    const y = cBase - (cH * k) / 2;
+    b += `<path d="M${P + 30} ${r(y)}H${W - P}" stroke="${th.border}" ${k ? 'stroke-dasharray="3 5"' : ''}/>`;
+    b += d.text('m4', String(Math.round((nice * k) / 2)), P + 18, y + 4, 11, th.dim, 'text-anchor="end"');
+  }
+  b += `<defs><linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${th.sky}"/><stop offset="1" stop-color="${th.teal}" stop-opacity=".55"/></linearGradient>
+<linearGradient id="barM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${mode === 'dark' ? '#F5D0FE' : th.sky}"/><stop offset="1" stop-color="${th.sky}"/></linearGradient></defs>`;
+  const slot = (W - P * 2 - 40) / a.months.length, mbw = 38;
+  const maxK = a.months.reduce((x, m) => (m.v > x.v ? m : x), a.months[0]).k;
+  const pts = [];
+  a.months.forEach((m, i) => {
+    const h = Math.max(3, (m.v / nice) * cH); const x = P + 40 + i * slot + (slot - mbw) / 2;
+    const isMax = m.k === maxK, isNow = i === a.months.length - 1;
+    b += `<rect x="${r(x)}" y="${r(cBase - h)}" width="${mbw}" height="${r(h)}" rx="8" fill="url(#${isMax ? 'barM' : 'bar'})" opacity="${isMax ? 1 : 0.8}"/>`;
+    if (isNow) b += `<rect x="${r(x - 3)}" y="${r(cBase - h - 3)}" width="${mbw + 6}" height="${r(h + 6)}" rx="10" fill="none" stroke="${th.sky}" stroke-width="1.5" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" values="0;16" dur="1.2s" repeatCount="indefinite"/></rect>`;
+    b += d.text(isMax ? 'm7' : 'm4', String(m.v), x + mbw / 2, cBase - h - 9, 12, isMax ? th.text : th.muted, 'text-anchor="middle"');
+    const mi = Number(m.k.slice(5)) - 1;
+    b += d.text('m4', MESES[mi], x + mbw / 2, cBase + 20, 11, isMax ? th.sky : th.dim, 'text-anchor="middle"');
+    pts.push([x + mbw / 2, cBase - h]);
   });
-  ['lun', 'mié', 'vie'].forEach((t, i) => { b += d.text('m4', t, P, gy + (1 + i * 2) * step + 11.5, 11, th.dim); });
-  b += `<rect x="${gx - 160}" y="${gy - 4}" width="160" height="${7 * step + 4}" fill="url(#sweep)"><animate attributeName="x" values="${gx - 160};${gx + gw}" dur="6s" repeatCount="indefinite"/></rect>`;
-  // leyenda
-  const ly = gy + 7 * step + 18;
-  let lx = gx + gw - (5 * 19) - measure('m4', 'más', 11) - 8;
-  b += d.text('m4', 'menos', lx - 8, ly + 11, 11, th.dim, 'text-anchor="end"');
-  Object.values(LV).forEach((c, i) => { b += `<rect x="${r(lx + i * 19)}" y="${ly}" width="14" height="14" rx="3.5" fill="${c}"/>`; });
-  b += d.text('m4', 'más', lx + 5 * 19 + 4, ly + 11, 11, th.dim);
-  b += d.text('m4', `${a.commits} commits · ${a.prs} PRs · ${a.repos} repos públicos`, gx, ly + 11, 12, th.muted);
+  b += `<path d="${pts.map((p, i) => (i ? 'L' : 'M') + r(p[0]) + ' ' + r(p[1])).join(' ')}" fill="none" stroke="${th.text}" stroke-opacity=".25" stroke-width="1.5" stroke-dasharray="2 4"/>`;
+  b += `<rect x="${P}" y="${cTop - 20}" width="160" height="${cH + 20}" fill="url(#sweep)"><animate attributeName="x" values="${P - 160};${W - P}" dur="7s" repeatCount="indefinite"/></rect>`;
+  const ly = cBase + 8;
 
   // Paneles inferiores
   const py = ly + 40, ph = H - py - P;

@@ -35,6 +35,7 @@ jobs:
         run: node activity.js ../assets ${{ github.repository_owner }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERFIL_TOKEN: ${{ secrets.PERFIL_TOKEN }}   # opcional: PAT para contar también lo privado
 
       - name: Guardar cambios
         run: |
