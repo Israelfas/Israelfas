@@ -16,9 +16,11 @@
   <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/title-about-dark.svg" alt="Sobre mí" width="100%">
 </picture>
 
-Estudio **Ingeniería en Software en la ULEAM** y trabajo como desarrollador full-stack. Lo que más disfruto es agarrar un problema real (un taller, un bufete, una tienda de barrio) y llevarlo desde el modelo de datos hasta una app que alguien usa todos los días.
-
-Mi fuerte es el **backend con NestJS y PostgreSQL**: módulos bien separados, seguridad, colas de trabajo y reportes. Cuando el proyecto lo pide también me encargo del frontend y del móvil. Prefiero sacar una primera versión que funcione y mejorarla, a esperar a que quede perfecta.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/about-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/about-light.svg">
+  <img src="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/about-dark.svg" alt="Sobre mí: estudio Ingeniería en Software en la ULEAM y trabajo como desarrollador full-stack, entre proyectos académicos y clientes reales. Mi fuerte es el backend con NestJS y PostgreSQL, y también me encargo del frontend y del móvil." width="100%">
+</picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Israelfas/Israelfas/main/assets/now-dark.svg">

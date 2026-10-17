@@ -186,7 +186,7 @@ function hero(mode) {
     [],
     [C('kw', 'export default '), C('text', 'israel'), C('punc', ';')],
   ];
-  const cfs = 15, ccw = 0.6 * cfs, lh = 24;
+  const cfs = 15, ccw = 0.6 * cfs, lh = 22;
   let codeEls = '';
   code.forEach((line, i) => {
     const y = ey + 76 + i * lh;
@@ -202,6 +202,19 @@ function hero(mode) {
     codeEls += s + '</g>';
   });
 
+  // cielo nocturno sobre el Pacífico
+  let seed = 11; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  let sky = `<circle cx="664" cy="64" r="60" fill="url(#moonglow)"/><path d="M672 46a19 19 0 1 0 12 34a15 15 0 1 1 -12 -34z" fill="${mode === 'dark' ? '#EDE4FF' : th.sky}" opacity="${mode === 'dark' ? 0.9 : 0.5}"/>`;
+  for (let i = 0; i < 70; i++) {
+    const x = rnd() * W, y = rnd() * 330, rr = 0.6 + rnd() * 1.3, dur = 2 + rnd() * 4, op = (mode === 'dark' ? 0.25 : 0.12) + rnd() * (mode === 'dark' ? 0.6 : 0.25);
+    const col = rnd() > 0.75 ? th.sky : (mode === 'dark' ? '#FFFFFF' : th.teal);
+    sky += `<circle cx="${r(x)}" cy="${r(y)}" r="${r(rr)}" fill="${col}" opacity="${r(op)}"><animate attributeName="opacity" values="${r(op)};${r(op * 0.2)};${r(op)}" dur="${r(dur)}s" begin="${r(rnd() * 4)}s" repeatCount="indefinite"/></circle>`;
+  }
+  [[300, 30, 0], [980, 20, 4.5]].forEach(([x0, y0, b]) => {
+    sky += `<g opacity="0"><line x1="${x0}" y1="${y0}" x2="${x0 - 90}" y2="${y0 + 36}" stroke="url(#shoot)" stroke-width="1.6" stroke-linecap="round"/><animate attributeName="opacity" values="0;1;0;0" keyTimes="0;.04;.1;1" dur="9s" begin="${b}s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;-140 56;-140 56" keyTimes="0;.1;1" dur="9s" begin="${b}s" repeatCount="indefinite"/></g>`;
+  });
+  sky = `<defs><linearGradient id="shoot" x1="0" x2="1"><stop offset="0" stop-color="${mode === 'dark' ? '#fff' : th.teal}"/><stop offset="1" stop-color="${mode === 'dark' ? '#fff' : th.teal}" stop-opacity="0"/></linearGradient></defs>` + sky;
+
   const waves = [
     { y: 392, a: 10, l: 300, op: mode === 'dark' ? 0.12 : 0.08, c: th.sky, dur: 26 },
     { y: 404, a: 8, l: 240, op: mode === 'dark' ? 0.16 : 0.1, c: th.teal, dur: 18 },
@@ -214,7 +227,9 @@ function hero(mode) {
   <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="${th.grid}" stroke-opacity="${th.gridOp}"/></pattern>
   <radialGradient id="g1" cx="0.12" cy="0.1" r="0.6"><stop offset="0" stop-color="${th.teal}" stop-opacity="${mode === 'dark' ? 0.32 : 0.14}"/><stop offset="1" stop-color="${th.teal}" stop-opacity="0"/></radialGradient>
   <radialGradient id="g2" cx="0.92" cy="0.95" r="0.55"><stop offset="0" stop-color="${th.coral}" stop-opacity="${mode === 'dark' ? 0.16 : 0.08}"/><stop offset="1" stop-color="${th.coral}" stop-opacity="0"/></radialGradient>
-  <linearGradient id="role" x1="0" x2="1"><stop offset="0" stop-color="${th.teal}"/><stop offset="1" stop-color="${th.sky}"/></linearGradient>
+  <linearGradient id="role" gradientUnits="userSpaceOnUse" x1="${lx}" x2="${lx + 760}" spreadMethod="reflect"><stop offset="0" stop-color="${th.teal}"/><stop offset=".5" stop-color="${th.sky}"/><stop offset="1" stop-color="${th.teal}"/><animateTransform attributeName="gradientTransform" type="translate" values="0 0;-380 0;0 0" dur="8s" repeatCount="indefinite"/></linearGradient>
+  <linearGradient id="shine" gradientUnits="userSpaceOnUse" x1="-260" x2="0"><stop offset="0" stop-color="${th.text}"/><stop offset=".5" stop-color="${mode === 'dark' ? '#F5E8FF' : th.teal}"/><stop offset="1" stop-color="${th.text}"/><animateTransform attributeName="gradientTransform" type="translate" values="-100 0;1100 0;1100 0" keyTimes="0;.45;1" dur="7s" repeatCount="indefinite"/></linearGradient>
+  <radialGradient id="moonglow"><stop offset="0" stop-color="${th.sky}" stop-opacity="${mode === 'dark' ? 0.35 : 0.18}"/><stop offset="1" stop-color="${th.sky}" stop-opacity="0"/></radialGradient>
   <radialGradient id="gm" cx="0.25" cy="0.3" r="0.8"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
   <mask id="gridmask"><rect width="${W}" height="${H}" fill="url(#gm)"/></mask>
   <clipPath id="type"><rect x="${px}" y="${py - 20}" width="0" height="28"><animate attributeName="width" values="${wv}" keyTimes="${kt}" dur="${T}s" calcMode="discrete" repeatCount="indefinite"/></rect></clipPath>
@@ -224,6 +239,7 @@ function hero(mode) {
   <rect width="${W}" height="${H}" fill="url(#grid)" mask="url(#gridmask)"/>
   <rect width="${W}" height="${H}" fill="url(#g1)"/>
   <rect width="${W}" height="${H}" fill="url(#g2)"/>
+  ${sky}
   ${waves}
 </g>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="24" fill="none" stroke="${th.border}"/>
@@ -233,7 +249,7 @@ function hero(mode) {
   ${d.text('m4', '$ whoami', lx + measure('m4', '~/manta-ec ', 16), 92, 16, th.muted)}
   <rect class="blink" x="${r(lx + measure('m4', '~/manta-ec $ whoami ', 16))}" y="78" width="9" height="18" fill="${th.muted}"/>
 </g>
-<g class="up" style="animation-delay:.2s">${d.text('d8', 'Israel Mejía', lx - 3, 180, 80, th.text, 'letter-spacing="-2"')}</g>
+<g class="up" style="animation-delay:.2s">${d.text('d8', 'Israel Mejía', lx - 3, 180, 80, 'url(#shine)', 'letter-spacing="-2"')}</g>
 <g class="up" style="animation-delay:.35s">${d.text('d6', 'Full-Stack Developer', lx, 234, 34, 'url(#role)', 'letter-spacing="-0.5"')}</g>
 <g class="up" style="animation-delay:.6s">
   ${d.text('m7', '>', lx, py, fs_, th.coral)}
@@ -246,7 +262,16 @@ ${chips.join('')}
   <rect x="${ex}" y="${ey}" width="${ew}" height="${eh}" rx="16" fill="${th.surface2}" stroke="${th.border2}"/>
   <path d="M${ex} ${ey + 42}H${ex + ew}" stroke="${th.border2}"/>
   <circle cx="${ex + 22}" cy="${ey + 21}" r="6" fill="${th.coral}"/><circle cx="${ex + 42}" cy="${ey + 21}" r="6" fill="${th.amber}"/><circle cx="${ex + 62}" cy="${ey + 21}" r="6" fill="${th.teal}"/>
-  ${d.text('m4', 'israel.ts', ex + ew / 2, ey + 26, 13, th.dim, 'text-anchor="middle"')}
+  <path d="M${ex + 84} ${ey + 42}V${ey + 8}h96a8 8 0 0 1 8 8v26" fill="${th.bg}" fill-opacity="${mode === 'dark' ? 0.55 : 0.9}" stroke="${th.border2}"/>
+  <rect x="${ex + 84}" y="${ey + 8}" width="104" height="2" fill="${th.teal}"/>
+  ${d.text('m4', 'israel.ts', ex + 100, ey + 30, 12.5, th.text)}
+  ${d.text('m4', 'stack.json', ex + 202, ey + 30, 12.5, th.dim)}
+  <rect x="${ex + 1}" y="${ey + 76 + lh - 16}" width="${ew - 2}" height="${lh}" fill="${th.teal}" fill-opacity="${mode === 'dark' ? 0.09 : 0.07}"><animate attributeName="y" values="${[1,3,4,5,6].map((i) => ey + 76 + i * lh - 16).join(';')}" dur="7.5s" calcMode="discrete" repeatCount="indefinite"/></rect>
+  <rect x="${ex + 1}" y="${ey + 76 + lh - 16}" width="2.5" height="${lh}" fill="${th.teal}"><animate attributeName="y" values="${[1,3,4,5,6].map((i) => ey + 76 + i * lh - 16).join(';')}" dur="7.5s" calcMode="discrete" repeatCount="indefinite"/></rect>
+  <path d="M${ex} ${ey + eh - 28}H${ex + ew}" stroke="${th.border2}"/>
+  <circle cx="${ex + 18}" cy="${ey + eh - 14}" r="3.5" fill="${th.teal}"/>
+  ${d.text('m4', 'main', ex + 28, ey + eh - 10, 11, th.muted)}
+  ${d.text('m4', 'TypeScript · UTF-8 · LF', ex + ew - 16, ey + eh - 10, 11, th.dim, 'text-anchor="end"')}
   ${codeEls}
 </g>`;
   write(`hero-${mode}.svg`, svg(d, W, H, body, baseCSS, 'Israel Mejía · Full-Stack Developer'));
@@ -268,6 +293,46 @@ function title(mode, num, label, slug) {
 <rect x="${r(lx)}" y="39.5" width="${r(W - lx)}" height="1.5" fill="url(#ln)"/>
 <rect x="${r(lx)}" y="38.5" width="120" height="3.5" rx="2" fill="url(#spark)"><animate attributeName="x" values="${r(lx - 120)};${W}" dur="4.5s" repeatCount="indefinite"/></rect>`;
   write(`title-${slug}-${mode}.svg`, svg(d, W, H, body, baseCSS, label));
+}
+
+// ================= SOBRE MÍ =================
+function about(mode) {
+  const th = THEMES[mode]; const d = new Doc(); const W = 1200, H = 420, P = 40;
+  const lw = 600;
+  const para = 'Estudio Ingeniería en Software en la ULEAM y trabajo como desarrollador full-stack, entre proyectos académicos y clientes reales. Mi fuerte es el backend con NestJS y PostgreSQL, y cuando el proyecto lo pide también me encargo del frontend y del móvil.';
+  const lines = wrap('d4', para, 18, lw - 10);
+  const tags = ['backend', 'apis-rest', 'bases-de-datos', 'full-stack'];
+  let tx = P, tagEls = '';
+  tags.forEach((t) => { const w = measure('m4', '#' + t, 13) + 24; tagEls += `<rect x="${r(tx)}" y="${H - P - 32}" width="${r(w)}" height="32" rx="16" fill="${th.teal}" fill-opacity="${th.tint}" stroke="${th.teal}" stroke-opacity=".3"/>${d.text('m4', '#' + t, tx + 12, H - P - 11, 13, th.teal)}`; tx += w + 8; });
+  const items = [
+    { icon: 'server', c: th.teal, t: 'Backend sólido', s: 'Módulos claros, seguridad, colas de trabajo y reportes con NestJS.' },
+    { icon: 'store', c: th.amber, t: 'Problemas reales', s: 'Talleres, bufetes y tiendas: software que alguien usa a diario.' },
+    { icon: 'rocket', c: th.sky, t: 'Itero rápido', s: 'Primero una versión que funcione; después la mejoro paso a paso.' },
+  ];
+  const rx = P + lw + 40, rw = W - P - rx, ih = (H - P * 2 - 2 * 14) / 3;
+  let right = '';
+  items.forEach((it, i) => {
+    const y = P + i * (ih + 14);
+    const sl = wrap('d4', it.s, 15.5, rw - 104);
+    right += `<rect x="${r(rx)}" y="${r(y)}" width="${r(rw)}" height="${r(ih)}" rx="16" fill="${th.surface2}" stroke="${th.border}"/>
+<rect x="${r(rx + 20)}" y="${r(y + ih / 2 - 24)}" width="48" height="48" rx="13" fill="${it.c}" fill-opacity="${th.tint}" stroke="${it.c}" stroke-opacity=".3"/>
+${licon(it.icon, rx + 32, y + ih / 2 - 12, 24, it.c)}
+${d.text('d6', it.t, rx + 86, y + ih / 2 - (sl.length > 1 ? 14 : 4), 20, th.text, 'letter-spacing="-0.3"')}
+${sl.slice(0, 2).map((l, k) => d.text('d4', l, rx + 86, y + ih / 2 + (sl.length > 1 ? 10 : 20) + k * 20, 15.5, th.muted)).join('')}`;
+  });
+  const body = `<defs><clipPath id="ac"><rect width="${W}" height="${H}" rx="20"/></clipPath>
+<radialGradient id="aglow" cx="0" cy="0" r=".8"><stop offset="0" stop-color="${th.teal}" stop-opacity="${mode === 'dark' ? 0.2 : 0.08}"/><stop offset="1" stop-color="${th.teal}" stop-opacity="0"/></radialGradient>
+<linearGradient id="hl" x1="0" x2="1"><stop offset="0" stop-color="${th.teal}"/><stop offset="1" stop-color="${th.sky}"/></linearGradient></defs>
+<g clip-path="url(#ac)"><rect width="${W}" height="${H}" fill="${th.surface}"/><rect width="${W}" height="${H}" fill="url(#aglow)"/></g>
+<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="20" fill="none" stroke="${th.border}"/>
+${licon('quote', P, P - 2, 26, th.teal)}
+${d.text('d7', 'Del modelo de datos a la app', P, P + 70, 38, th.text, 'letter-spacing="-0.9"')}
+${d.text('d7', 'que alguien usa todos los días.', P, P + 116, 38, 'url(#hl)', 'letter-spacing="-0.9"')}
+<rect x="${P}" y="${P + 140}" width="64" height="3" rx="1.5" fill="${th.teal}"/>
+${lines.map((l, i) => d.text('d4', l, P, P + 182 + i * 28, 18, th.muted)).join('')}
+${tagEls}
+${right}`;
+  write(`about-${mode}.svg`, svg(d, W, H + 16, body, baseCSS, 'Sobre mí: ' + para));
 }
 
 // ================= FRANJA "AHORA" =================
@@ -466,7 +531,7 @@ module.exports = { Doc, THEMES, measure, esc, r, fit, svg, baseCSS, licon, bicon
 if (require.main !== module) return;
 const SECTIONS = [['01', 'Sobre mí', 'about'], ['02', 'Proyectos', 'projects'], ['03', 'Stack', 'stack'], ['04', 'Actividad', 'activity'], ['05', 'Contacto', 'contact']];
 for (const m of ['dark', 'light']) {
-  hero(m); now(m); stack(m); divider(m); footer(m);
+  hero(m); about(m); now(m); stack(m); divider(m); footer(m);
   SECTIONS.forEach(([n, l, s]) => title(m, n, l, s));
   PROJECTS.forEach((p) => card(m, p));
   CONTACT.forEach((b) => button(m, b));
